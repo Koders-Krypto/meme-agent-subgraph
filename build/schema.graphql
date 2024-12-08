@@ -1,0 +1,31 @@
+type Account @entity {
+	id: Bytes!
+	ERC20balances: [ERC20Balance!]! @derivedFrom(field: "account")
+}
+
+type MemeCoin @entity(immutable: true) {
+	id: Bytes!
+	creator: Account!
+	name: String
+	symbol: String
+	decimals: BigInt!
+	totalSupply: BigInt!
+	initialSupply: BigInt!
+}
+
+type LPToken @entity(immutable: true) {
+	id: Bytes!
+	name: String
+	symbol: String
+	decimals: BigInt!
+	token0: Bytes!
+	token1: Bytes!
+	reserve0: BigInt!
+	reserve1: BigInt!
+}
+
+type ERC20Balance @entity {
+	id: ID!
+	account: Account
+	value: BigInt!
+}

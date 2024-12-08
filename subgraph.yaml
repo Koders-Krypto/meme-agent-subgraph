@@ -1,0 +1,88 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: MemeCoinFactory
+    network: base-sepolia
+    source:
+      address: "0xb67444e08b5182549Cf1921F2EF63DC3D8b32eed"
+      abi: MemeCoinFactory
+      startBlock: 18891387
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - MemeCoin
+      abis:
+        - name: MemeCoinFactory
+          file: ./abis/MemeCoinFactory.json
+      eventHandlers:
+        - event: MemeCoinCreated(indexed address,indexed address,string,string,uint256,uint256,address)
+          handler: handleMemeCoinCreated
+      file: ./src/meme-coin-factory.ts
+  - kind: ethereum
+    name: LiquidityFactory
+    network: base-sepolia
+    source:
+      address: "0x22900c39c0C71D44C3952c67438FD3f8c75ee6EC"
+      abi: LiquidityFactory
+      startBlock: 18891383
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Account
+      abis:
+        - name: LiquidityFactory
+          file: ./abis/LiquidityFactory.json
+        - name: LiquidityPair
+          file: ./abis/LiquidityPair.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address)
+          handler: handlePairCreated
+      file: ./src/liquidity-factory.ts
+templates:
+  - kind: ethereum
+    name: MemeCoin
+    network: base-sepolia
+    source:
+      abi: MemeCoin
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - MemeCoin
+      abis:
+        - name: MemeCoin
+          file: ./abis/MemeCoin.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/meme-coin.ts
+  - kind: ethereum
+    name: LiquidityPair
+    network: base-sepolia
+    source:
+      abi: LiquidityPair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - LPToken
+      abis:
+        - name: LiquidityPair
+          file: ./abis/LiquidityPair.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Sync(uint256,uint256)
+          handler: handleSync
+      file: ./src/liquidity-pair.ts

@@ -1,0 +1,22 @@
+{
+	"polygon-amoy": {
+		"MemeCoinFactory": {
+			"address": "0x0862756DdC9188A2f723B6Cd2Ed4112030E6daff",
+			"startBlock": 15321439
+		},
+		"LiquidityFactory": {
+			"address": "0x0197933AC6A1d7d5b21CBeE15a1b5f05AD1Dd3D8",
+			"startBlock": 15321434
+		}
+	},
+	"base-sepolia": {
+		"MemeCoinFactory": {
+			"address": "0xb67444e08b5182549Cf1921F2EF63DC3D8b32eed",
+			"startBlock": 18891387
+		},
+		"LiquidityFactory": {
+			"address": "0x22900c39c0C71D44C3952c67438FD3f8c75ee6EC",
+			"startBlock": 18891383
+		}
+	}
+}
